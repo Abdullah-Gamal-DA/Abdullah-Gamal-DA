@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Academic Research — Competition Policy & Food Security — Abdullah Gamal</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <header id="header">
+    <div class="inner">
+  <a href="../index.html" class="back-link">← Back</a>
+      <h1>Academic Research — Competition Policy & Food Security</h1>
+      <p class="lead">ARDL econometric analysis testing policy impact (1990–2023).</p>
+    </div>
+  </header>
+
+  <div id="main" class="container">
+    <section>
+      <h2>Overview</h2>
+      <div class="inner">
+        <p><strong>Role of Competition Policy in Enhancing Food Security and Agricultural Productivity (1990–2023) — Case Study: Egypt</strong></p>
+        <p>This study (Jan 2025 – Apr 2025) analyzed the role of competition policy in enhancing food security and agricultural productivity in Egypt between 1990 and 2023 using descriptive, graphical and econometric methods, including an ARDL model estimated in EViews 12. Results indicate competition policies implemented since 2018 did not have a significant direct effect on food security but contributed significantly to increasing agricultural output. The study found a positive relationship between agricultural output and food security in both the short and long run. Imports showed a positive short-run effect but a negative long-run effect due to supply-chain volatility. Causality tests confirmed an effect of competition policy on agricultural output. Recommendations include adopting comprehensive competition-enhancing policies, increasing investment, adopting modern technologies, improving labor efficiency, reducing import dependence, and five-year development plans to strengthen food security.</p>
+
+        <div style="margin-top:1rem;display:flex;gap:0.75rem;">
+          <a class="button" href="#report">Open report</a>
+        </div>
+
+        
+      </div>
+    </section>
+
+    <section id="report">
+      <h3>Report</h3>
+      <div class="inner">
+        <p><a id="download-academic" href="دور سياسة المنافسة في تعزيز الأمن الغذائي والإنتاجية الزراعية.pdf" target="_blank">Download report PDF</a></p>
+        <div style="margin-top:0.5rem;">
+          <object id="academic-viewer" data="دور سياسة المنافسة في تعزيز الأمن الغذائي والإنتاجية الزراعية.pdf" type="application/pdf" width="100%" height="800">
+            <p>Preview not available — <a href="دور سياسة المنافسة في تعزيز الأمن الغذائي والإنتاجية الزراعية.pdf">download the report</a>.</p>
+          </object>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer id="footer">
+    <div class="inner">
+      <p>&copy; Abdullah Gamal Abdelrahman</p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    async function checkFile(url){
+      try{
+        const resp = await fetch(url, { method: 'HEAD' });
+        return resp.ok;
+      }catch(e){
+        return false;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async function(){
+      const pdfPath = 'دور سياسة المنافسة في تعزيز الأمن الغذائي والإنتاجية الزراعية.pdf';
+      const hasPdf = await checkFile(pdfPath);
+      const viewer = document.getElementById('academic-viewer');
+      const download = document.getElementById('download-academic');
+      if (!hasPdf){
+        if (viewer) viewer.outerHTML = '<p>Report PDF not found in this folder. Copy the file into the project folder to enable the inline preview. Use the copy command shown on the page.</p>';
+        if (download) download.style.opacity = 0.6;
+      }
+    });
+  </script>
+</body>
+</html>

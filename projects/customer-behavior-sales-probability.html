@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Customer Behavior & Sales Probability Modeling — Abdullah Gamal</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <header id="header">
+    <div class="inner">
+  <a href="../index.html" class="back-link">← Back</a>
+      <h1>Customer Behavior & Sales Probability Modeling</h1>
+      <p class="lead">Segmentation and probability modeling to estimate purchase likelihood.</p>
+    </div>
+  </header>
+
+  <div id="main" class="container">
+    <section>
+      <h2>Overview</h2>
+      <div class="inner">
+        <p><strong>Sales Probability Analysis for Returning Customers</strong><br />November and December, the peak shopping months. The primary goal was to evaluate returning customers’ purchase rates, identify behavioral correlations, and estimate the probability of achieving ambitious sales targets under a new marketing campaign. Using Python (pandas, seaborn, scipy), the analysis showed that with a 15% boosted conversion rate, the expected sales were ~75 out of 500 sessions, while achieving 100+ sales remained statistically rare. The results suggest that increasing total traffic, improving conversion rates beyond 15%, and optimizing targeting are the next steps.</p>
+
+        <div style="margin-top:1rem;display:flex;gap:0.75rem;">
+          <a class="button" id="btn-report" href="#report">Report</a>
+          <a class="button" id="btn-code" href="#code">Code</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="report">
+      <h3>Report</h3>
+      <div class="inner">
+        <p><a id="download-report" href="DataLab _ AI-powered data notebook for all skill levels report.pdf" target="_blank">Download report PDF</a></p>
+        <div style="margin-top:0.5rem;">
+          <object id="report-viewer" data="DataLab _ AI-powered data notebook for all skill levels report.pdf" type="application/pdf" width="100%" height="600"> 
+          </object>
+        </div>
+      </div>
+    </section>
+
+    <section id="code">
+      <h3>Code</h3>
+      <div class="inner">
+        <p><a id="download-code" href="DataLab _ AI-powered data notebook for all skill levels code.pdf" target="_blank">Download code PDF</a></p>
+        <div style="margin-top:0.5rem;">
+          <object id="code-viewer" data="DataLab _ AI-powered data notebook for all skill levels code.pdf" type="application/pdf" width="100%" height="600"> 
+          </object>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer id="footer">
+    <div class="inner">
+      <p>&copy; Abdullah Gamal Abdelrahman</p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    // Check if a file exists by attempting a HEAD request; show/hide viewers accordingly
+    async function checkFile(url){
+      try{
+        const resp = await fetch(url, { method: 'HEAD' });
+        return resp.ok;
+      }catch(e){
+        return false;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async function(){
+      const reportPath = 'DataLab _ AI-powered data notebook for all skill levels report.pdf';
+      const codePath = 'DataLab _ AI-powered data notebook for all skill levels code.pdf';
+
+      const hasReport = await checkFile(reportPath);
+      const hasCode = await checkFile(codePath);
+
+      const reportViewer = document.getElementById('report-viewer');
+      const codeViewer = document.getElementById('code-viewer');
+      const downloadReport = document.getElementById('download-report');
+      const downloadCode = document.getElementById('download-code');
+
+      if (!hasReport){
+        if (reportViewer) reportViewer.outerHTML = '<p>Report PDF not found in this folder. Copy the file into the project folder to enable the inline preview. Use the copy commands on the page.</p>';
+        if (downloadReport) downloadReport.style.opacity = 0.6;
+      }
+
+      if (!hasCode){
+        if (codeViewer) codeViewer.outerHTML = '<p>Code PDF not found in this folder. Copy the file into the project folder to enable the inline preview. Use the copy commands on the page.</p>';
+        if (downloadCode) downloadCode.style.opacity = 0.6;
+      }
+    });
+  </script>
+</body>
+</html>

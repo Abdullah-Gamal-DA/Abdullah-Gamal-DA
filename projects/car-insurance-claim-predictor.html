@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Car Insurance Claim Predictor — Abdullah Gamal</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+    <style>
+      /* highlight.js token overrides: comments green, keywords purple, strings orange, numbers blue */
+      .hljs-comment { color: #2a9d2a; font-style: italic; }
+      .hljs-keyword { color: #6a1b9a; font-weight: 600; }
+      .hljs-string { color: #d35400; }
+      .hljs-number { color: #1565c0; }
+      /* code block background and padding (keeps it readable) */
+      pre code.hljs { display: block; padding: 1rem; border-radius: 6px; background: #fbfbfb; }
+    </style>
+</head>
+<body>
+  <header id="header">
+    <div class="inner">
+  <a href="../index.html" class="back-link">← Back</a>
+      <h1>Car Insurance Claim Predictor</h1>
+      <p class="lead">Machine learning models to predict insurance claims; deployed as a Streamlit app.</p>
+    </div>
+  </header>
+
+  <div id="main" class="container">
+    <section>
+      <h2>Overview</h2>
+      <div class="inner">
+        <p>Built several ML models; Decision Tree performed best (~85% accuracy). Deployed an interactive Streamlit app for risk assessment.</p>
+      </div>
+    </section>
+
+    <!-- Video placeholder: set data-youtube to your full YouTube URL or video ID -->
+    <div class="video-embed" data-youtube="https://youtu.be/lSIUcMXfmp8" style="margin-bottom:1.5rem;">
+      <div class="video-inner" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;">
+      </div>
+    </div>
+
+    <nav>
+      <ul class="actions">
+        <li><a href="#code" class="button">Code</a></li>
+        <li><a href="#report" class="button">Report / Results</a></li>
+      </ul>
+    </nav>
+
+    <section id="code">
+      <h3>Code</h3>
+      <p>Below are the key scripts used: model training & evaluation, and the Streamlit app used for deployment. Paste these into your notebook or files as needed.</p>
+
+      <details open>
+        <summary><strong>Model training & evaluation (excerpt)</strong></summary>
+        <pre><code class="language-python hljs"># Import required modules
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
+
+# Load data
+car_ins = pd.read_csv('car_insurance.csv')
+
+# (mapping + preprocessing as in notebook)
+# Prepare X, y
+X = car_ins.drop(['id','outcome','postal_code'], axis=1)
+y = car_ins['outcome']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, stratify=y, random_state=42)
+
+pipeline = Pipeline([
+    ('imputer', SimpleImputer(strategy='mean')),
+    ('scaler', StandardScaler()),
+    ('clf', DecisionTreeClassifier(max_depth=5, random_state=42))
+])
+pipeline.fit(X_train, y_train)
+
+from sklearn.metrics import classification_report
+pred = pipeline.predict(X_test)
+print(classification_report(y_test, pred))
+
+# save model
+import joblib
+joblib.dump(pipeline, 'insurance_model.pkl')
+</code></pre>
+  </details>
+
+  <!-- Streamlit snippet removed per user request -->
+    </section>
+
+    <!-- Report / Results section removed per user request -->
+
+    <!-- Live demo section removed per user request -->
+  </div>
+
+  <footer id="footer">
+    <div class="inner">
+      <p>&copy; Abdullah Gamal Abdelrahman</p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <!-- highlight.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', function(){ hljs.highlightAll(); });</script>
+  <script>
+    (function(){
+      var ve = document.querySelector('.video-embed');
+      if (!ve) return;
+      var url = ve.getAttribute('data-youtube') || '';
+      if (!url) return;
+      var id = url.match(/[?&]v=([^&]+)/);
+      if (id) id = id[1]; else id = url;
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/' + encodeURIComponent(id) + '?rel=0';
+      iframe.frameBorder = '0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.style.position = 'absolute';
+      iframe.style.top = '0';
+      iframe.style.left = '0';
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      var inner = ve.querySelector('.video-inner');
+      if (inner) inner.appendChild(iframe);
+    })();
+    (function(){
+      var btn = document.getElementById('set-demo');
+      var input = document.getElementById('streamlit-url');
+      var wrap = document.getElementById('iframe-wrap');
+      if (!btn || !input || !wrap) return;
+      btn.addEventListener('click', function(){
+        var url = input.value.trim();
+        if (!url) return;
+        // ensure iframe uses https
+        if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+        // create iframe
+        wrap.innerHTML = '';
+        var ifr = document.createElement('iframe');
+        ifr.src = url;
+        ifr.style.width = '100%';
+        ifr.style.height = '100%';
+        ifr.style.border = '0';
+        wrap.appendChild(ifr);
+      });
+    })();
+  </script>
+</body>
+</html>

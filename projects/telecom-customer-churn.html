@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Telecom Customer Churn Analysis</title>
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <style>
+      /* Responsive, uniform dashboard cards */
+      .dash-cards {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem 0.25rem;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* Allow wrapping on wide screens, horizontal scroll on small screens */
+      @media (min-width: 900px) {
+        .dash-cards { flex-wrap: wrap; }
+        .dash-card { flex: 1 1 calc(33.333% - 1rem); min-width: 220px; }
+      }
+
+      @media (max-width: 899px) {
+        .dash-cards { overflow-x: auto; flex-wrap: nowrap; }
+        .dash-card { flex: 0 0 72%; min-width: 220px; }
+      }
+
+      .dash-card {
+        background: #fff;
+        border: 1px solid #e6e6e6;
+        border-radius: 8px;
+        padding: 0.6rem;
+        box-shadow: 0 6px 18px rgba(12,17,22,0.04);
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+      .dash-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(12,17,22,0.08); }
+
+      .dash-card .thumb {
+        width: 100%;
+        height: 160px;
+        display: block;
+        object-fit: cover; /* keep uniform crop */
+        border-radius: 6px;
+        background: #f6f6f6;
+      }
+
+      .dash-card h4 { margin: 0.5rem 0 0.25rem 0; font-size: 1rem; }
+      .dash-card p { margin: 0; font-size: 0.87rem; color: #666; }
+    </style>
+  </head>
+  <body>
+    <header id="header">
+      <div class="inner">
+        <h1>Telecom Customer Churn Analysis</h1>
+        <p>Analyzed telecom customer data to identify churn drivers (26% rate) using Power BI and proposed retention strategies.</p>
+        <p><a href="../index.html" class="button">← Back to portfolio</a></p>
+      </div>
+    </header>
+
+    <main id="main">
+      <section>
+        <header class="major">
+          <h2>Project overview</h2>
+        </header>
+        <div class="inner">
+          <p>Analyzed telecom customer data to identify churn drivers (26% rate) using Power BI and proposed retention strategies.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="inner">
+          <h3>Video walkthrough</h3>
+          <p>Embedded walkthrough (replace the iframe src with your actual video).</p>
+          <div class="video-responsive" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Telecom churn video" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <header class="major">
+          <h2>Dashboards</h2>
+        </header>
+        <div class="inner">
+          <p>Use the cards below to view dashboard screenshots. Tap/click a card to open the full-size image in a new tab.</p>
+          <div class="dash-cards" aria-label="Dashboards carousel">
+            <div class="dash-card" data-src="../images/thumbs/telecom_01.jpg">
+              <img class="thumb" src="../images/thumbs/telecom_01.jpg" alt="Overview dashboard" />
+            </div>
+            <div class="dash-card" data-src="../images/thumbs/telecom_02.jpg">
+              <img class="thumb" src="../images/thumbs/telecom_02.jpg" alt="Churn drivers" />
+              <h4>Churn Demographics</h4>
+            </div>
+            <div class="dash-card" data-src="../images/thumbs/telecom_03.jpg">
+              <img class="thumb" src="../images/thumbs/telecom_03.jpg" alt="Cohorts" />
+              <h4>Groups and Categories</h4>
+            </div>
+            <div class="dash-card" data-src="../images/thumbs/telecom_04.jpg">
+              <img class="thumb" src="../images/thumbs/telecom_04.jpg" alt="Model performance" />
+              <h4>Unlimited Plan</h4>
+            </div>
+            <div class="dash-card" data-src="../images/thumbs/telecom_05.jpg">
+              <img class="thumb" src="../images/thumbs/telecom_05.jpg" alt="Page 5" />
+              <h4>International Calls</h4>
+            </div>
+            <div class="dash-card" data-src="../images/thumbs/telecom_06.jpg">
+              <img class="thumb" src="../images/thumbs/telecom_06.jpg" alt="Page 6" />
+              <h4>Contract Type</h4>
+            </div>
+            <div class="dash-card" data-src="../images/thumbs/telecom_07.jpg">
+              <img class="thumb" src="../images/thumbs/telecom_07.jpg" alt="Page 7" />
+              <h4>Overview</h4>
+            </div>
+            <div class="dash-card" data-src="../images/thumbs/telecom_08.jpg">
+              <img class="thumb" src="../images/thumbs/telecom_08.jpg" alt="Page 8" />
+              <h4>Payment and Contract</h4>
+            </div>
+            <div class="dash-card" data-src="../images/thumbs/telecom_09.jpg">
+              <img class="thumb" src="../images/thumbs/telecom_09.jpg" alt="Page 9" />
+              <h4>Insights</h4>
+            </div>
+          </div>
+
+          <p style="margin-top:1rem;">Download report (PDF):
+          <a href="Customer Churn analysis Power BI.pdf" target="_blank">Open report (PDF)</a>
+          </p>
+        </div>
+      </section>
+
+      <!-- Notes & downloads section removed per user request -->
+
+    </main>
+
+    <footer id="footer">
+      <div class="inner">
+        <p>&copy; Abdullah Gamal Abdelrahman</p>
+      </div>
+    </footer>
+
+    <script>
+      // Make dash cards clickable: open the full-sized image in a new tab
+      document.addEventListener('DOMContentLoaded', function(){
+        document.querySelectorAll('.dash-card').forEach(function(card){
+          card.style.cursor = 'pointer';
+          card.addEventListener('click', function(){
+            var src = card.getAttribute('data-src');
+            if (src) window.open(src, '_blank');
+          });
+        });
+      });
+    </script>
+
+    <!-- highlight.js (keep in case code blocks added later) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', (e) => {hljs.highlightAll();});</script>
+  </body>
+</html>
