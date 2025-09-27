@@ -1,12 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Network Intelligence & Demand Forecasting">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="e-commerce">
   <defs>
-    <!-- Muted dark background -->
+    <!-- خلفية داكنة هادئة (Muted) -->
     <linearGradient id="bgDark" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#0b1020"/>
       <stop offset="100%" stop-color="#151a24"/>
     </linearGradient>
 
-    <!-- Soft card shine -->
+    <!-- وميض لطيف يمر فوق البطاقة -->
     <linearGradient id="shine" x1="-0.2" y1="0" x2="1.2" y2="0">
       <stop offset="0%" stop-color="#ffffff00"/>
       <stop offset="50%" stop-color="#ffffff22"/>
@@ -15,19 +15,19 @@
       <animate attributeName="x2" values="0.8;2.2" dur="8s" repeatCount="indefinite"/>
     </linearGradient>
 
-    <!-- Subtle card border -->
+    <!-- حدود البطاقة بزجاجية خفيفة -->
     <linearGradient id="cardStroke" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0.28"/>
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0.06"/>
     </linearGradient>
 
-    <!-- Accent (Indigo → Teal) -->
+    <!-- أكسنت هادئ (Indigo → Teal) للأيقونة والعناصر -->
     <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#7aa2f7"/>
       <stop offset="100%" stop-color="#4fd1c5"/>
     </linearGradient>
 
-    <!-- Soft glow for icon -->
+    <!-- توهج بسيط -->
     <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="3" result="b"/>
       <feMerge>
@@ -37,27 +37,27 @@
     </filter>
   </defs>
 
-  <!-- Background -->
+  <!-- خلفية -->
   <rect width="100%" height="100%" fill="url(#bgDark)"/>
 
-  <g transform="translate(60,60)" font-family="Inter, Segoe UI, Arial, sans-serif">
-    <!-- Glassy card -->
+  <g transform="translate(60,60)" font-family="Cairo, Inter, Arial, sans-serif">
+    <!-- بطاقة زجاجية -->
     <rect x="0" y="0" width="680" height="200" rx="16"
           fill="#ffffff0d" stroke="url(#cardStroke)" stroke-width="1"/>
     <rect x="0" y="0" width="680" height="200" rx="16" fill="url(#shine)" opacity="0.12"/>
 
-    <!-- Telecom icon (tower + waves) -->
+    <!-- أيقونة اتصالات (برج + موجات) -->
     <g transform="translate(100,100)">
-      <!-- Halo -->
+      <!-- هالة -->
       <circle r="54" fill="url(#accent)" opacity="0.12" filter="url(#softGlow)"/>
-      <!-- Simplified tower -->
+      <!-- برج مبسّط -->
       <g fill="none" stroke="#9aa3b2" stroke-width="3" stroke-linecap="round">
         <line x1="0" y1="-14" x2="0" y2="28"/>
         <line x1="-10" y1="28" x2="0" y2="8"/>
         <line x1="10" y1="28" x2="0" y2="8"/>
       </g>
       <circle r="6" fill="url(#accent)"/>
-      <!-- Signal waves -->
+      <!-- موجات الإشارة -->
       <g fill="none" stroke="url(#accent)" stroke-width="2" stroke-linecap="round" opacity="0.9">
         <path d="M-18 -18 A26 26 0 0 1 18 -18">
           <animate attributeName="opacity" values="0.2;1;0.2" dur="3.2s" repeatCount="indefinite"/>
@@ -68,15 +68,15 @@
       </g>
     </g>
 
-    <!-- Texts -->
-    <text x="180" y="90" font-size="24" font-weight="700" fill="#e6e9ef">
-      Network Intelligence &amp; Demand Forecasting
+    <!-- النصوص -->
+    <text x="180" y="90" font-size="26" font-weight="700" fill="#e6e9ef">
+      e-commerce
     </text>
-    <text x="180" y="130" font-size="18" fill="#9aa3b2">
-      Telecom Analytics for Proactive Optimization
+    <text x="180" y="130" font-size="20" fill="#9aa3b2">
+      Customer Behavior & Sales Probability Modeling
     </text>
 
-    <!-- Subtle progress bars (like the template) -->
+    <!-- مؤشرات/شرائط تقدم خفيفة مثل التيمبلت -->
     <g>
       <rect x="180" y="156" width="420" height="10" rx="5" fill="#ffffff14"/>
       <rect x="180" y="156" width="0" height="10" rx="5" fill="url(#accent)">
