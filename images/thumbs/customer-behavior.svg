@@ -1,33 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="e-commerce">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"
+     role="img" aria-label="Telecom dashboard card">
+  <desc>Glass card with black background, telecom icon from sample, animated bars and headline.</desc>
+
+  <!-- =========================
+       التعريفات (تدرجات/فلاتر/أنماط)
+       ========================= -->
   <defs>
-    <!-- خلفية داكنة هادئة (Muted) -->
-    <linearGradient id="bgDark" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0b1020"/>
-      <stop offset="100%" stop-color="#151a24"/>
+    <!-- (موجود بس مش هنستخدمه بعد ما خلّينا الخلفية سودا) -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a">
+        <animate attributeName="stop-color" values="#0f172a; #141E30; #0f172a" dur="14s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#243B55">
+        <animate attributeName="stop-color" values="#243B55; #1e40af; #243B55" dur="14s" repeatCount="indefinite"/>
+      </stop>
     </linearGradient>
 
-    <!-- وميض لطيف يمر فوق البطاقة -->
-    <linearGradient id="shine" x1="-0.2" y1="0" x2="1.2" y2="0">
-      <stop offset="0%" stop-color="#ffffff00"/>
-      <stop offset="50%" stop-color="#ffffff22"/>
-      <stop offset="100%" stop-color="#ffffff00"/>
-      <animate attributeName="x1" values="-0.2;1.2" dur="8s" repeatCount="indefinite"/>
-      <animate attributeName="x2" values="0.8;2.2" dur="8s" repeatCount="indefinite"/>
-    </linearGradient>
+    <!-- شبكة مربعات خفيفة -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+      <circle cx="40" cy="40" r="1.5" fill="#ffffff" opacity="0.08"/>
+    </pattern>
 
-    <!-- حدود البطاقة بزجاجية خفيفة -->
-    <linearGradient id="cardStroke" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.06"/>
-    </linearGradient>
+    <!-- قناع تلاشي للشبكة -->
+    <mask id="fadeMask">
+      <radialGradient id="fadeRad" cx="45%" cy="35%" r="80%">
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="100%" stop-color="#000000"/>
+      </radialGradient>
+      <rect width="800" height="600" fill="url(#fadeRad)"/>
+    </mask>
 
-    <!-- أكسنت هادئ (Indigo → Teal) للأيقونة والعناصر -->
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#7aa2f7"/>
-      <stop offset="100%" stop-color="#4fd1c5"/>
-    </linearGradient>
+    <!-- تغميق الأطراف (Vignette) -->
+    <radialGradient id="vignette" cx="50%" cy="40%" r="80%">
+      <stop offset="60%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.35"/>
+    </radialGradient>
 
-    <!-- توهج بسيط -->
+    <!-- ظل خارجي ناعم -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+
+    <!-- توهج ناعم -->
     <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="3" result="b"/>
       <feMerge>
@@ -35,29 +50,90 @@
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+
+    <!-- ضوضاء خفيفة -->
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch" result="n"/>
+      <feColorMatrix type="matrix" values="
+        1 0 0 0 0
+        0 1 0 0 0
+        0 0 1 0 0
+        0 0 0 0.04 0"/>
+      <feBlend in="SourceGraphic" in2="n" mode="soft-light"/>
+    </filter>
+
+    <!-- حدود البطاقة -->
+    <linearGradient id="cardStrokeGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.15"/>
+    </linearGradient>
+
+    <!-- أكسنت عام -->
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+
+    <!-- تدرج الأشرطة -->
+    <linearGradient id="barGradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8be9fd"/>
+      <stop offset="100%" stop-color="#49bf9d"/>
+    </linearGradient>
+
+    <!-- تدرج عنوان -->
+    <linearGradient id="titleGradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+
+    <!-- لمعان عابر -->
+    <linearGradient id="shineGrad" x1="-0.2" y1="0" x2="1.2" y2="0">
+      <stop offset="0%" stop-color="#ffffff00"/>
+      <stop offset="50%" stop-color="#ffffff66"/>
+      <stop offset="100%" stop-color="#ffffff00"/>
+      <animate attributeName="x1" values="-0.2;1.2" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0.8;2.2" dur="4s" repeatCount="indefinite"/>
+    </linearGradient>
+
+    <!-- قصّ البطاقة للضوضاء -->
+    <clipPath id="clipCard">
+      <rect x="0" y="0" width="680" height="200" rx="20"/>
+    </clipPath>
   </defs>
 
-  <!-- خلفية -->
-  <rect width="100%" height="100%" fill="url(#bgDark)"/>
+  <!-- =========================
+       الخلفية العامة (سوداء)
+       ========================= -->
+  <rect width="100%" height="100%" fill="#000000"/>
+  <rect width="100%" height="100%" fill="url(#grid)" mask="url(#fadeMask)"/>
+  <rect width="100%" height="100%" fill="url(#vignette)"/>
 
-  <g transform="translate(60,60)" font-family="Cairo, Inter, Arial, sans-serif">
-    <!-- بطاقة زجاجية -->
-    <rect x="0" y="0" width="680" height="200" rx="16"
-          fill="#ffffff0d" stroke="url(#cardStroke)" stroke-width="1"/>
-    <rect x="0" y="0" width="680" height="200" rx="16" fill="url(#shine)" opacity="0.12"/>
+  <!-- =========================
+       البطاقة الزجاجية
+       ========================= -->
+  <g transform="translate(60,60)" font-family="Inter, Segoe UI, Arial, Helvetica, sans-serif">
+    <!-- الإطار الأساسي -->
+    <rect x="0" y="0" width="680" height="200" rx="20"
+          fill="#ffffff12" stroke="url(#cardStrokeGradient)" stroke-width="1"
+          filter="url(#shadow)"/>
 
-    <!-- أيقونة اتصالات (برج + موجات) -->
+    <!-- ضوضاء ناعمة داخل البطاقة -->
+    <g clip-path="url(#clipCard)">
+      <rect x="0" y="0" width="680" height="200" fill="#ffffff00" filter="url(#noise)"/>
+    </g>
+
+    <!-- لمعان أعلى البطاقة -->
+    <rect x="2" y="2" width="676" height="80" rx="18" fill="url(#shineGrad)" opacity="0.35"/>
+
+    <!-- ========= أيقونة (نفس كود مثالك) ========= -->
     <g transform="translate(100,100)">
-      <!-- هالة -->
       <circle r="54" fill="url(#accent)" opacity="0.12" filter="url(#softGlow)"/>
-      <!-- برج مبسّط -->
       <g fill="none" stroke="#9aa3b2" stroke-width="3" stroke-linecap="round">
         <line x1="0" y1="-14" x2="0" y2="28"/>
         <line x1="-10" y1="28" x2="0" y2="8"/>
         <line x1="10" y1="28" x2="0" y2="8"/>
       </g>
       <circle r="6" fill="url(#accent)"/>
-      <!-- موجات الإشارة -->
       <g fill="none" stroke="url(#accent)" stroke-width="2" stroke-linecap="round" opacity="0.9">
         <path d="M-18 -18 A26 26 0 0 1 18 -18">
           <animate attributeName="opacity" values="0.2;1;0.2" dur="3.2s" repeatCount="indefinite"/>
@@ -67,31 +143,64 @@
         </path>
       </g>
     </g>
+    <!-- ========= /أيقونة ========= -->
 
-    <!-- النصوص -->
-    <text x="180" y="90" font-size="26" font-weight="700" fill="#e6e9ef">
-      e-commerce
-    </text>
-    <text x="180" y="130" font-size="20" fill="#9aa3b2">
-      Customer Behavior & Sales Probability Modeling
-    </text>
-
-    <!-- مؤشرات/شرائط تقدم خفيفة مثل التيمبلت -->
+    <!-- أشرطة البيانات يمين الأيقونة -->
     <g>
-      <rect x="180" y="156" width="420" height="10" rx="5" fill="#ffffff14"/>
-      <rect x="180" y="156" width="0" height="10" rx="5" fill="url(#accent)">
-        <animate attributeName="width" values="0;360" dur="1.1s" fill="freeze" begin="0.2s"/>
-      </rect>
+      <!-- مسارات خلفية خفيفة -->
+      <g fill="#ffffff" opacity="0.08">
+        <rect x="180" y="56" width="420" height="14" rx="7"/>
+        <rect x="180" y="94" width="420" height="14" rx="7"/>
+        <rect x="180" y="132" width="420" height="14" rx="7"/>
+      </g>
 
-      <rect x="180" y="176" width="420" height="10" rx="5" fill="#ffffff14"/>
-      <rect x="180" y="176" width="0" height="10" rx="5" fill="url(#accent)">
-        <animate attributeName="width" values="0;300" dur="1.1s" fill="freeze" begin="0.35s"/>
-      </rect>
+      <!-- الأشرطة المتدرجة المتحركة -->
+      <g fill="url(#barGradient)" opacity="0.96">
+        <rect x="180" y="56" width="0" height="14" rx="7">
+          <animate attributeName="width" values="0;380" dur="1s" fill="freeze" begin="0.2s"/>
+        </rect>
+        <rect x="180" y="94" width="0" height="14" rx="7">
+          <animate attributeName="width" values="0;320" dur="1s" fill="freeze" begin="0.4s"/>
+        </rect>
+        <rect x="180" y="132" width="0" height="14" rx="7">
+          <animate attributeName="width" values="0;260" dur="1s" fill="freeze" begin="0.6s"/>
+        </rect>
+      </g>
 
-      <rect x="180" y="196" width="420" height="10" rx="5" fill="#ffffff14"/>
-      <rect x="180" y="196" width="0" height="10" rx="5" fill="url(#accent)">
-        <animate attributeName="width" values="0;240" dur="1.1s" fill="freeze" begin="0.5s"/>
-      </rect>
+      <!-- لمعان عابر فوق الأشرطة -->
+      <g opacity="0.45">
+        <rect x="180" y="56" width="420" height="14" rx="7" fill="url(#shineGrad)"/>
+        <rect x="180" y="94" width="420" height="14" rx="7" fill="url(#shineGrad)"/>
+        <rect x="180" y="132" width="420" height="14" rx="7" fill="url(#shineGrad)"/>
+      </g>
     </g>
+
+    <!-- شرارات لطيفة -->
+    <g fill="#ffffff">
+      <circle cx="610" cy="36" r="2">
+        <animate attributeName="opacity" values="0;1;0" dur="3.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="640" cy="170" r="1.6">
+        <animate attributeName="opacity" values="0;1;0" dur="4.2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="560" cy="24" r="1.4">
+        <animate attributeName="opacity" values="0;1;0" dur="4.8s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+
+  <!-- =========================
+       العنوان والنصوص (خارج البطاقة)
+       ========================= -->
+  <g font-family="Inter, Segoe UI, Arial, Helvetica, sans-serif">
+    <text x="60" y="304" font-size="44" font-weight="800" fill="url(#titleGradient)" letter-spacing="1.2">
+      e-commerce
+      <animate attributeName="letter-spacing" values="1.2;2;1.2" dur="6s" repeatCount="indefinite"/>
+    </text>
+    <!-- خط تحتي متوهّج -->
+    <g filter="url(#softGlow)">
+      <rect x="60" y="314" width="160" height="4" rx="2" fill="url(#titleGradient)" opacity="0.9"/>
+    </g>
+    <text x="60" y="344" font-size="22" fill="#e5e7eb" opacity="0.9">Customer Behavior & Sales Probability Modeling</text>
   </g>
 </svg>
