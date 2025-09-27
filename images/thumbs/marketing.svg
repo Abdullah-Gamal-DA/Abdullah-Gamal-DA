@@ -130,8 +130,12 @@
       <circle r="22" fill="none" stroke="#ffffff" stroke-opacity="0.9" stroke-width="2"/>
       <circle r="10" fill="#ffffff" opacity="0.85"/>
       <!-- سهم صاعد -->
-      <path d="M -18,14 L 6,-6" fill="none" stroke="#2b2130" stroke-width="3" stroke-linecap="round"/>
-      <path d="M 6,-6 l -6,0 l 0,-6 z" fill="#2b2130"/>
+      <path d="M -10,0 L -2,8 L 12,-8"
+            fill="none"
+            stroke="#2b2130"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
       <!-- هالة خفيفة -->
       <circle r="64" fill="url(#accent)" opacity="0.12" filter="url(#softGlow)"/>
     </g>
