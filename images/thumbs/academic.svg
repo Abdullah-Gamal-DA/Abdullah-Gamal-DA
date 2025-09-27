@@ -1,19 +1,191 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Academic card with animated bars">
+  <!-- =========================
+       التعريفات (Gradients / Filters / Patterns)
+       ========================= -->
   <defs>
-    <linearGradient id="g4" x1="0" x2="1">
-      <stop offset="0%" stop-color="#134E5E"/>
-      <stop offset="100%" stop-color="#71B280"/>
+    <!-- تدرّج خلفية داكن-أخضر (متحرك خفيف) -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1311">
+        <animate attributeName="stop-color" values="#0a1311; #0c1614; #0a1311" dur="16s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#12201c">
+        <animate attributeName="stop-color" values="#12201c; #0e1a17; #12201c" dur="16s" repeatCount="indefinite"/>
+      </stop>
+      <animateTransform attributeName="gradientTransform" type="rotate"
+                        values="0 .5 .5; 360 .5 .5" dur="60s" repeatCount="indefinite"/>
     </linearGradient>
+
+    <!-- شبكة مربعات خفيفة -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+      <circle cx="40" cy="40" r="1.5" fill="#ffffff" opacity="0.08"/>
+    </pattern>
+
+    <!-- قناع تلاشي للشبكة -->
+    <mask id="fadeMask">
+      <radialGradient id="fadeRad" cx="45%" cy="35%" r="80%">
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="100%" stop-color="#000000"/>
+      </radialGradient>
+      <rect width="800" height="600" fill="url(#fadeRad)"/>
+    </mask>
+
+    <!-- تغميق حواف (Vignette) -->
+    <radialGradient id="vignette" cx="50%" cy="40%" r="80%">
+      <stop offset="60%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.35"/>
+    </radialGradient>
+
+    <!-- ظل خارجي ناعم -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+
+    <!-- توهج ناعم -->
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- ضوضاء خفيفة -->
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch" result="n"/>
+      <feColorMatrix type="matrix" values="
+        1 0 0 0 0
+        0 1 0 0 0
+        0 0 1 0 0
+        0 0 0 0.04 0"/>
+      <feBlend in="SourceGraphic" in2="n" mode="soft-light"/>
+    </filter>
+
+    <!-- حدود البطاقة -->
+    <linearGradient id="cardStrokeGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.15"/>
+    </linearGradient>
+
+    <!-- أكسنت عام (أخضر نعناعي هادئ) -->
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8fdcc3"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+
+    <!-- تدرّج الأشرطة -->
+    <linearGradient id="barGradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+
+    <!-- تدرّج عنوان -->
+    <linearGradient id="titleGradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#bbf7d0"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+
+    <!-- لمعان عابر -->
+    <linearGradient id="shineGrad" x1="-0.2" y1="0" x2="1.2" y2="0">
+      <stop offset="0%" stop-color="#ffffff00"/>
+      <stop offset="50%" stop-color="#ffffff66"/>
+      <stop offset="100%" stop-color="#ffffff00"/>
+      <animate attributeName="x1" values="-0.2;1.2" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0.8;2.2" dur="4s" repeatCount="indefinite"/>
+    </linearGradient>
+
+    <!-- قصّ البطاقة للضوضاء -->
+    <clipPath id="clipCard">
+      <rect x="0" y="0" width="680" height="200" rx="20"/>
+    </clipPath>
   </defs>
-  <rect width="100%" height="100%" fill="url(#g4)" rx="16"/>
-  <g transform="translate(48,40)" fill="#fff" font-family="Arial, Helvetica, sans-serif">
-    <rect x="0" y="0" width="120" height="120" rx="8" fill="#ffffff22"/>
-    <g transform="translate(12,12)" fill="#fff" opacity="0.9">
-      <rect x="0" y="0" width="80" height="8" rx="4"/>
-      <rect x="0" y="18" width="120" height="8" rx="4"/>
-      <rect x="0" y="36" width="60" height="8" rx="4"/>
+
+  <!-- =========================
+       الخلفية العامة
+       ========================= -->
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+  <rect width="100%" height="100%" fill="url(#grid)" mask="url(#fadeMask)"/>
+  <rect width="100%" height="100%" fill="url(#vignette)"/>
+
+  <!-- =========================
+       البطاقة الزجاجية
+       ========================= -->
+  <g transform="translate(60,60)" font-family="Inter, Segoe UI, Arial, Helvetica, sans-serif">
+    <!-- الإطار الأساسي -->
+    <rect x="0" y="0" width="680" height="200" rx="20"
+          fill="#ffffff12" stroke="url(#cardStrokeGradient)" stroke-width="1"
+          filter="url(#shadow)"/>
+
+    <!-- ضوضاء ناعمة داخل البطاقة -->
+    <g clip-path="url(#clipCard)">
+      <rect x="0" y="0" width="680" height="200" fill="#ffffff00" filter="url(#noise)"/>
     </g>
-    <text x="0" y="170" font-size="30" font-weight="700">Academic</text>
-    <text x="0" y="206" font-size="18" fill="#ffffffcc">Competition Policy</text>
+
+    <!-- لمعان أعلى البطاقة -->
+    <rect x="2" y="2" width="676" height="80" rx="18" fill="url(#shineGrad)" opacity="0.35"/>
+
+    <!-- ========= أيقونة (قبّعة تخرّج) يسار ========= -->
+    <g transform="translate(100,100)">
+      <!-- هالة خلفية خافتة -->
+      <circle r="56" fill="#ffffff22"/>
+      <circle r="44" fill="url(#accent)" opacity="0.18" filter="url(#softGlow)"/>
+      <!-- القبّعة (خطوط نظيفة) -->
+      <g fill="none" stroke="#e7fff6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.95">
+        <!-- سطح القبعة -->
+        <path d="M-34 -10 L0 -26 L34 -10 L0 6 Z"/>
+        <!-- الذقن/قاعدة -->
+        <path d="M-22 10 Q0 22 22 10" />
+        <!-- الشرّابة -->
+        <path d="M34 -10 L48 -2"/>
+        <circle cx="48" cy="-2" r="2.5" fill="#e7fff6"/>
+      </g>
+      <!-- نبض خفيف للهالة -->
+      <circle r="64" fill="url(#accent)" opacity="0.12" filter="url(#softGlow)">
+        <animate attributeName="r" values="60;66;60" dur="4s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    <!-- ========= /أيقونة ========= -->
+
+    <!-- أشرطة البيانات يمين الأيقونة -->
+    <g>
+      <!-- مسارات خلفية خفيفة -->
+      <g fill="#ffffff" opacity="0.08">
+        <rect x="180" y="56" width="420" height="14" rx="7"/>
+        <rect x="180" y="94" width="420" height="14" rx="7"/>
+        <rect x="180" y="132" width="420" height="14" rx="7"/>
+      </g>
+
+      <!-- الأشرطة المتدرجة المتحركة -->
+      <g fill="url(#barGradient)" opacity="0.96">
+        <rect x="180" y="56" width="0" height="14" rx="7">
+          <animate attributeName="width" values="0;340" dur="1s" fill="freeze" begin="0.2s"/>
+        </rect>
+        <rect x="180" y="94" width="0" height="14" rx="7">
+          <animate attributeName="width" values="0;280" dur="1s" fill="freeze" begin="0.4s"/>
+        </rect>
+        <rect x="180" y="132" width="0" height="14" rx="7">
+          <animate attributeName="width" values="0;220" dur="1s" fill="freeze" begin="0.6s"/>
+        </rect>
+      </g>
+
+      <!-- لمعان عابر فوق الأشرطة -->
+      <g opacity="0.45">
+        <rect x="180" y="56"  width="420" height="14" rx="7" fill="url(#shineGrad)"/>
+        <rect x="180" y="94"  width="420" height="14" rx="7" fill="url(#shineGrad)"/>
+        <rect x="180" y="132" width="420" height="14" rx="7" fill="url(#shineGrad)"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- =========================
+       العنوان والنصوص (خارج البطاقة)
+       ========================= -->
+  <g font-family="Inter, Segoe UI, Arial, Helvetica, sans-serif">
+    <text x="60" y="304" font-size="44" font-weight="800" fill="url(#titleGradient)" letter-spacing="1.2">
+      ACADEMIC
+      <animate attributeName="letter-spacing" values="1.2;2;1.2" dur="6s" repeatCount="indefinite"/>
+    </text>
+    <!-- خط تحتي متوهّج -->
+    <g filter="url(#softGlow)">
+      <rect x="60" y="314" width="190" height="4" rx="2" fill="url(#titleGradient)" opacity="0.9"/>
+    </g>
+    <text x="60" y="344" font-size="22" fill="#e5e7eb" opacity="0.9">Competition Policy</text>
   </g>
 </svg>
