@@ -1,95 +1,195 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- =========================
+       التعريفات (تدرجات/فلاتر/أنماط)
+       مبنيّة على قالب telecom.txt مع تعديل الألوان والأيقونة والنصوص
+       ========================= -->
   <defs>
-    <!-- خلفية متدرجة هادئة + أنيميشن خفيف -->
+    <!-- تدرج خلفية ديناميكي (Muted Purple→Rose) -->
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#3a3e5c">
-        <animate attributeName="stop-color" values="#3a3e5c;#323654;#3a3e5c" dur="16s" repeatCount="indefinite"/>
+        <animate attributeName="stop-color" values="#3a3e5c; #323654; #3a3e5c" dur="16s" repeatCount="indefinite"/>
       </stop>
       <stop offset="100%" stop-color="#6a3b47">
-        <animate attributeName="stop-color" values="#6a3b47;#593442;#6a3b47" dur="16s" repeatCount="indefinite"/>
+        <animate attributeName="stop-color" values="#6a3b47; #593442; #6a3b47" dur="16s" repeatCount="indefinite"/>
       </stop>
     </linearGradient>
 
-    <!-- ڤينييت بسيط لتخفيف الحواف -->
-    <radialGradient id="vignette" cx="50%" cy="50%" r="75%">
-      <stop offset="60%" stop-color="#000" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#000" stop-opacity="0.25"/>
-    </radialGradient>
+    <!-- نمط شبكة خفيف -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+      <circle cx="40" cy="40" r="1.5" fill="#ffffff" opacity="0.08"/>
+    </pattern>
 
-    <!-- لمعان متحرك، أخف من قبل -->
-    <linearGradient id="shine" x1="-0.2" y1="0" x2="1.2" y2="0">
-      <stop offset="0%" stop-color="#ffffff00"/>
-      <stop offset="50%" stop-color="#ffffff33"/>
-      <stop offset="100%" stop-color="#ffffff00"/>
-      <animate attributeName="x1" values="-0.2;1.2" dur="5s" repeatCount="indefinite"/>
-      <animate attributeName="x2" values="0.8;2.2" dur="5s" repeatCount="indefinite"/>
-    </linearGradient>
+    <!-- ظل خارجي -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.32"/>
+    </filter>
 
     <!-- توهج ناعم -->
     <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feGaussianBlur stdDeviation="2.8" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
 
-    <!-- خامة ضوضاء أخف -->
+    <!-- خامة ضوضاء خفيفة -->
     <filter id="noise">
       <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch" result="noise"/>
       <feColorMatrix type="matrix" values="
         1 0 0 0 0
         0 1 0 0 0
         0 0 1 0 0
-        0 0 0 0.02 0"/>
+        0 0 0 0.03 0"/>
       <feBlend in="SourceGraphic" in2="noise" mode="soft-light"/>
     </filter>
 
-    <!-- تدرج النص أكثر هدوءًا -->
-    <linearGradient id="textGradient" x1="0" y1="0" x2="1" y2="0">
+    <!-- حدود البطاقة -->
+    <linearGradient id="cardStrokeGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.12"/>
+    </linearGradient>
+
+    <!-- Accent للأيقونة (Muted Amber → Mauve) -->
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c49a6a"/>
+      <stop offset="100%" stop-color="#b67a92"/>
+    </linearGradient>
+
+    <!-- تدرج أشرطة البيانات (Lavender → Rose, هادئ) -->
+    <linearGradient id="barGradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d9d3e6"/>
+      <stop offset="100%" stop-color="#e6c3cf"/>
+    </linearGradient>
+
+    <!-- تدرج عنوان هادئ -->
+    <linearGradient id="titleGradient" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#e5e7eb"/>
       <stop offset="100%" stop-color="#cbd5e1"/>
     </linearGradient>
+
+    <!-- ڤينييت للتغميق في الحواف -->
+    <radialGradient id="vignette" cx="50%" cy="45%" r="80%">
+      <stop offset="60%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.28"/>
+    </radialGradient>
+
+    <!-- قناع تلاشي للشبكة -->
+    <mask id="fadeMask">
+      <radialGradient id="fadeRad" cx="45%" cy="35%" r="80%">
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="100%" stop-color="#000000"/>
+      </radialGradient>
+      <rect width="800" height="600" fill="url(#fadeRad)"/>
+    </mask>
+
+    <!-- لمعان عابر فوق الأشرطة (هادئ) -->
+    <linearGradient id="shineGrad" x1="-0.2" y1="0" x2="1.2" y2="0">
+      <stop offset="0%" stop-color="#ffffff00"/>
+      <stop offset="50%" stop-color="#ffffff44"/>
+      <stop offset="100%" stop-color="#ffffff00"/>
+      <animate attributeName="x1" values="-0.2;1.2" dur="5.5s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0.8;2.2" dur="5.5s" repeatCount="indefinite"/>
+    </linearGradient>
+
+    <!-- قصّ البطاقة -->
+    <clipPath id="clipCard">
+      <rect x="0" y="0" width="680" height="200" rx="20"/>
+    </clipPath>
   </defs>
 
-  <!-- الخلفية -->
-  <rect width="100%" height="100%" rx="16" fill="url(#bg)"/>
-  <rect width="100%" height="100%" rx="16" fill="url(#vignette)"/>
+  <!-- =========================
+       الخلفية العامة
+       ========================= -->
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+  <rect width="100%" height="100%" fill="url(#grid)" mask="url(#fadeMask)"/>
+  <rect width="100%" height="100%" fill="url(#vignette)"/>
 
-  <!-- المحتوى -->
-  <g transform="translate(48,40)" fill="#fff" font-family="Inter, Arial, Helvetica, sans-serif">
-    <!-- بطاقة مصغّرة -->
-    <rect x="0" y="0" width="120" height="120" rx="16" fill="#ffffff18" filter="url(#softGlow)"/>
-    <rect x="0" y="0" width="120" height="120" rx="16" fill="url(#shine)" opacity="0.18"/>
-    <rect x="0" y="0" width="120" height="120" rx="16" fill="#fff" opacity="0.015" filter="url(#noise)"/>
-
-    <!-- أيقونة داخل البطاقة -->
-    <g transform="translate(60,60)">
-      <circle r="28" fill="#fff" opacity="0.06"/>
-      <circle r="20" fill="#d97706" fill-opacity="0.85" filter="url(#softGlow)">
-        <animate attributeName="r" values="18;20;18" dur="4s" repeatCount="indefinite"/>
-      </circle>
+  <!-- =========================
+       البطاقة الزجاجية
+       ========================= -->
+  <g transform="translate(60,60)" font-family="Inter, Segoe UI, Arial, Helvetica, sans-serif">
+    <!-- البطاقة -->
+    <rect x="0" y="0" width="680" height="200" rx="20"
+          fill="#ffffff12" stroke="url(#cardStrokeGradient)" stroke-width="1"
+          filter="url(#shadow)"/>
+    <!-- Noise + لمعان -->
+    <g clip-path="url(#clipCard)">
+      <rect x="0" y="0" width="680" height="200" fill="#ffffff00" filter="url(#noise)"/>
+      <rect x="2" y="2" width="676" height="80" rx="18" fill="url(#shineGrad)" opacity="0.28"/>
     </g>
 
-    <!-- خطوط توضيحية (أقل سطوعًا) -->
-    <path d="M220 30h160v6H220zM220 56h110v6H220z" fill="#ffffff70"/>
+    <!-- أيقونة يسار (Target + Arrow) -->
+    <g transform="translate(100,100)">
+      <circle r="56" fill="#ffffff22"/>
+      <circle r="36" fill="url(#accent)" filter="url(#softGlow)">
+        <animate attributeName="r" values="34;36;34" dur="3.8s" repeatCount="indefinite"/>
+      </circle>
+      <!-- حلقات الهدف -->
+      <circle r="22" fill="none" stroke="#ffffff" stroke-opacity="0.9" stroke-width="2"/>
+      <circle r="10" fill="#ffffff" opacity="0.85"/>
+      <!-- سهم صاعد -->
+      <path d="M -18,14 L 6,-6" fill="none" stroke="#2b2130" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 6,-6 l -6,0 l 0,-6 z" fill="#2b2130"/>
+      <!-- هالة خفيفة -->
+      <circle r="64" fill="url(#accent)" opacity="0.12" filter="url(#softGlow)"/>
+    </g>
 
-    <!-- النصوص -->
-    <text x="0" y="170" font-size="34" font-weight="700" fill="url(#textGradient)">Marketing</text>
-    <rect x="0" y="178" width="140" height="3" rx="1.5" fill="url(#shine)" opacity="0.35"/>
-    <text x="0" y="210" font-size="19" fill="#ffffffbb">UK Personal Loans</text>
+    <!-- أشرطة البيانات يمين الأيقونة -->
+    <g>
+      <!-- مسارات باهتة -->
+      <g fill="#ffffff" opacity="0.10">
+        <rect x="180" y="56" width="420" height="14" rx="7"/>
+        <rect x="180" y="94" width="420" height="14" rx="7"/>
+        <rect x="180" y="132" width="420" height="14" rx="7"/>
+      </g>
+      <!-- الأشرطة المتدرجة -->
+      <g fill="url(#barGradient)" opacity="0.96">
+        <rect x="180" y="56" width="0" height="14" rx="7">
+          <animate attributeName="width" values="0;360" dur="1s" fill="freeze" begin="0.2s"/>
+        </rect>
+        <rect x="180" y="94" width="0" height="14" rx="7">
+          <animate attributeName="width" values="0;300" dur="1s" fill="freeze" begin="0.35s"/>
+        </rect>
+        <rect x="180" y="132" width="0" height="14" rx="7">
+          <animate attributeName="width" values="0;240" dur="1s" fill="freeze" begin="0.5s"/>
+        </rect>
+      </g>
+      <!-- لمعان عابر فوق الأشرطة -->
+      <g opacity="0.35">
+        <rect x="180" y="56" width="420" height="14" rx="7" fill="url(#shineGrad)"/>
+        <rect x="180" y="94" width="420" height="14" rx="7" fill="url(#shineGrad)"/>
+        <rect x="180" y="132" width="420" height="14" rx="7" fill="url(#shineGrad)"/>
+      </g>
+    </g>
+
+    <!-- شرارات صغيرة -->
+    <g fill="#ffffff">
+      <circle cx="610" cy="36" r="2">
+        <animate attributeName="opacity" values="0;1;0" dur="3.6s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="640" cy="170" r="1.6">
+        <animate attributeName="opacity" values="0;1;0" dur="4.4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="560" cy="24" r="1.4">
+        <animate attributeName="opacity" values="0;1;0" dur="4.9s" repeatCount="indefinite"/>
+      </circle>
+    </g>
   </g>
 
-  <!-- شرارات أخف -->
-  <g fill="#fff" opacity="0.6">
-    <circle cx="700" cy="80" r="2">
-      <animate attributeName="opacity" values="0;0.8;0" dur="4s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="740" cy="140" r="1.5">
-      <animate attributeName="opacity" values="0;0.7;0" dur="5s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="680" cy="200" r="1.8">
-      <animate attributeName="opacity" values="0;0.7;0" dur="6s" repeatCount="indefinite"/>
-    </circle>
+  <!-- =========================
+       العنوان والنصوص
+       ========================= -->
+  <g font-family="Inter, Segoe UI, Arial, Helvetica, sans-serif">
+    <text x="60" y="304" font-size="44" font-weight="800" fill="url(#titleGradient)" letter-spacing="1.2">
+      MARKETING
+      <animate attributeName="letter-spacing" values="1.2;1.8;1.2" dur="6s" repeatCount="indefinite"/>
+    </text>
+    <!-- خط تحتي متوهّج -->
+    <g filter="url(#softGlow)">
+      <rect x="60" y="314" width="180" height="4" rx="2" fill="url(#titleGradient)" opacity="0.9"/>
+    </g>
+    <text x="60" y="344" font-size="22" fill="#e5e7eb" opacity="0.92">UK Personal Loans</text>
   </g>
 </svg>
