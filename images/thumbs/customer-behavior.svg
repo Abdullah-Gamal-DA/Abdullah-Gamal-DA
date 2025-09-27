@@ -201,6 +201,6 @@
     <g filter="url(#softGlow)">
       <rect x="60" y="314" width="160" height="4" rx="2" fill="url(#titleGradient)" opacity="0.9"/>
     </g>
-    <text x="60" y="344" font-size="22" fill="#e5e7eb" opacity="0.9">Customer Behavior & Sales Probability Modeling</text>
+    <text x="60" y="344" font-size="22" fill="#e5e7eb" opacity="0.9">Customer Behavior &amp; Sales Probability Modeling</text>
   </g>
 </svg>
