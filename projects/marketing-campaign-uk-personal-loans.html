@@ -1,112 +1,126 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Marketing Campaign Analysis — UK Personal Loans</title>
-    <link rel="stylesheet" href="../assets/css/main.css" />
-    <!-- ضع هذا في <head> -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,
-    <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'>
-      <text x='50%' y='50%' font-size='48' fill='%2300CED1' font-family='Arial' text-anchor='middle' dominant-baseline='central'>A</text>
-    </svg>">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Marketing Campaign Analysis — UK Personal Loans</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
 
-  </head>
-  <body>
-    <header id="header">
-      <div class="inner">
-        <h1 style="color: white;">Marketing Campaign Analysis — UK Personal Loans</h1>
-        <p>Cleaning, modelling and campaign response analysis for a UK bank campaign (41K+ records).</p>
-        <p><a href="../index.html" class="button">← Back to portfolio</a></p>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,
+  <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'>
+    <text x='50%' y='50%' font-size='48' fill='%2300CED1' font-family='Arial'
+      text-anchor='middle' dominant-baseline='central'>A</text>
+  </svg>">
+</head>
+
+<body>
+<header id="header">
+  <div class="inner">
+    <h1 style="color: white;">Marketing Campaign Analysis — UK Personal Loans</h1>
+    <p>Cleaning, modelling and campaign response analysis for a UK bank campaign (41K+ records).</p>
+    <p><a href="../index.html" class="button">← Back to portfolio</a></p>
+  </div>
+</header>
+
+<div id="main" class="container">
+
+  <!-- Overview -->
+  <section>
+    <h2>Overview</h2>
+    <div class="inner">
+      <p><strong>Data Analysis of a Marketing Campaign for Personal Loans in the UK</strong></p>
+      <p>Aug 2025 - Aug 2025</p>
+      <p>Analyzed a marketing campaign dataset with 41,000+ records. Focused on customer demographics, campaign success rates, and statistical correlations between variables like call duration, interest rates, and inflation (CPI).</p>
+
+      <p><strong>Key Insights:</strong> Target age group 30–45, call duration positively correlated with success, campaign effectiveness influenced by interest rates and CPI trends.</p>
+
+      <div style="margin-top:1rem;display:flex;gap:0.75rem;">
+        <a class="button" href="#video">Video</a>
+        <a class="button" href="#report">Report</a>
+        <a class="button" href="#code">Code</a>
       </div>
-    </header>
+    </div>
+  </section>
 
-
-  <main id="main">
-
-      <!-- Project description (inserted by request) -->
-      <section>
-        <header class="major">
-          <h2>Project description</h2>
-        </header>
-        <div class="inner">
-          <p><strong>Data Analysis of a Marketing Campaign for Personal Loans in the UK</strong></p>
-          <p>Data Analysis of a Marketing Campaign for Personal Loans in the UK<br>
-          Aug 2025 - Aug 2025</p>
-          <p>I conducted an analysis of a marketing campaign launched by a bank in the United Kingdom targeting personal loans. In 2022, the personal loan market size reached around £1.5 billion, and the dataset contained more than 41,000 records covering the full year.</p>
-          <p><strong>My Role:</strong><br>
-          Analyzed demographic data (age, education, occupations). Performed statistical testing using Pearson correlation to validate the relationship between call duration and campaign success. Examined the impact of interest rates and inflation (CPI) on campaign outcomes. Developed actionable recommendations to enhance targeting and optimize marketing expenditure.</p>
-          <p><strong>Key Findings:</strong><br>
-          The most represented age group was between 30 and 45 years old. A moderate but statistically significant correlation was found between call duration and campaign outcome. Campaign performance was strongly influenced by interest rates (higher success when rates were lower). Inflation (CPI) trends were associated with changes in interest rates, which impacted campaign effectiveness.</p>
-          <p><strong>Recommendations:</strong><br>
-          Expand targeting to include age groups outside 30–45. Improve call scripts and communication methods to increase effectiveness. Concentrate marketing spending during periods of lower interest rates. Monitor inflation expectations (CPI) to anticipate rate changes and plan campaigns accordingly.</p>
-        </div>
-      </section>
-
-      <!-- Video: moved before the code block -->
-      <section>
-        <div class="inner">
-          <h3>Video walkthrough</h3>
-          <div class="video-responsive" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
-            <!-- Example: data-video-id="dQw4w9WgXcQ" -->
-            <iframe src="https://www.youtube.com/embed/gqXEAjTWVMY" title="Project video" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen loading="lazy"></iframe>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <header class="major">
-          <h2>Code (essential parts)</h2>
-        </header>
-
-  <pre><code class="language-python">
-# Import needed libraries
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-from scipy.stats import pearsonr
-
-# import data and merge them in one df
-client = pd.read_csv('client.csv')
-campaign = pd.read_csv('campaign.csv')
-economics = pd.read_csv('economics.csv')
-df = client.merge(campaign, on='client_id', how='outer').merge(economics, on='month', how='left')
-
-# basic info
-df.info()
-
-# cleaning
-df[['job','marital','education']] = df[['job','marital','education']]
-df['marital'] = df['marital'].cat.reorder_categories(['unknown','single','married','divorced'])
-df['education'] = df['education'].astype('str').fillna('unknown')
-df['education'] = df['education'].astype('category')
-df['month'] = pd.to_datetime(df['last_contact_date']).dt.month
-df['contact_duration'] = df['contact_duration'] / 60
-
-# visual examples
-sns.boxenplot(df['age'])
-
-df['age_category'] = pd.cut(df['age'], bins=[0,30,45,60,120])
-sns.countplot(df['age_category'], order=df['age_category'].value_counts().index)
-
-# correlation and stats
-statistic, p_value = pearsonr(df['campaign_outcome'], df['contact_duration'])
-print(f'pearson: {statistic}, p-value: {p_value}')
-
-            </code></pre>
-
-      </section>
-    </main>
-
-    <footer id="footer">
-      <div class="inner">
-        <p style="color:white;">&copy; Abdullah Gamal Abdelrahman</p>
+  <!-- Video Section -->
+  <section id="video">
+    <h3>Video Walkthrough</h3>
+    <div class="inner">
+      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+        <iframe
+          src="https://www.youtube.com/embed/gqXEAjTWVMY"
+          title="Project video"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+          allowfullscreen loading="lazy">
+        </iframe>
       </div>
-    </footer>
+    </div>
+  </section>
 
-    <!-- highlight.js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', (e) => {hljs.highlightAll();});</script>
-  </body>
+  <!-- Report Section -->
+  <section id="report">
+    <h3>Report</h3>
+    <div class="inner">
+      <p><a id="download-report" href="bank_marketing.pdf" target="_blank">Download report PDF</a></p>
+      <div style="margin-top:0.5rem;">
+        <object id="report-viewer" data="bank_marketing.pdf" type="application/pdf" width="100%" height="600">
+        </object>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Section -->
+  <section id="code">
+    <h3>Code</h3>
+    <div class="inner">
+      <p><a id="download-code" href="bank_marketing_code.py" target="_blank">Download Python code</a></p>
+      <p>You can open the Python file directly from GitHub or download it.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer id="footer">
+  <div class="inner">
+    <p style="color:white;">&copy; Abdullah Gamal Abdelrahman</p>
+  </div>
+</footer>
+
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/main.js"></script>
+
+<script>
+async function checkFile(url){
+  try{
+    const resp = await fetch(url, { method: 'HEAD' });
+    return resp.ok;
+  }catch(e){
+    return false;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async function(){
+  const reportPath = 'bank_marketing.pdf';
+  const codePath = 'bank_marketing_code.py';
+
+  const hasReport = await checkFile(reportPath);
+  const hasCode = await checkFile(codePath);
+
+  const reportViewer = document.getElementById('report-viewer');
+  const downloadReport = document.getElementById('download-report');
+  const downloadCode = document.getElementById('download-code');
+
+  if (!hasReport){
+    if (reportViewer) reportViewer.outerHTML =
+      '<p>Report PDF not found. Put bank_marketing.pdf in this folder.</p>';
+    if (downloadReport) downloadReport.style.opacity = 0.6;
+  }
+
+  if (!hasCode){
+    if (downloadCode) downloadCode.style.opacity = 0.6;
+  }
+});
+</script>
+
+</body>
 </html>
