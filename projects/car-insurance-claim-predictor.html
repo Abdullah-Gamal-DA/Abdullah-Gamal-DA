@@ -76,15 +76,36 @@
   </section>
 
   <!-- Code Section -->
-  <section id="code">
-    <h3>Code</h3>
-    <div class="inner">
-      <p><a id="download-code-model" href="Modeling Car Insurance Claim Outcomes Using Machine Learning (code).py" target="_blank">Download model training code</a></p>
-      <p><a id="download-code-app" href="Modeling Car Insurance Claim Outcomes Using Machine Learning (the app).py" target="_blank">Download Streamlit app code</a> — Download and run this file to launch the app.</p>
-    </div>
-  </section>
+<section id="code">
+  <h3>Code</h3>
+  <div class="inner">
+    <p>
+      <a id="download-code-model"
+         href="Modeling Car Insurance Claim Outcomes Using Machine Learning (code).py"
+         target="_blank" rel="noopener">
+        Download model training code
+      </a>
+    </p>
 
-</div>
+    <p>
+      <a id="download-code-app"
+         href="Modeling Car Insurance Claim Outcomes Using Machine Learning (the app).py"
+         target="_blank" rel="noopener">
+        Download Streamlit app code
+      </a>
+      — Download and run this file to launch the app.
+    </p>
+
+    <p>
+      <a id="download-the-model"
+         href="insurance_model.pkl"
+         target="_blank" rel="noopener">
+        Download the model
+      </a>
+      — Download before running the app.
+    </p>
+  </div>
+</section>
 
 <footer id="footer">
   <div class="inner">
@@ -97,40 +118,44 @@
 
 <script>
 async function checkFile(url){
-  try{
+  try {
     const resp = await fetch(url, { method: 'HEAD' });
-    return resp.ok;
-  }catch(e){
+    if (resp.ok) return true;
+
+    // fallback for environments that don't allow HEAD
+    const resp2 = await fetch(url, { method: 'GET' });
+    return resp2.ok;
+  } catch(e){
     return false;
   }
 }
 
 document.addEventListener('DOMContentLoaded', async function(){
-  const reportPath = 'Modeling Car Insurance Claim Outcomes Using Machine Learning.pdf';
   const codeModelPath = 'Modeling Car Insurance Claim Outcomes Using Machine Learning (code).py';
-  const codeAppPath = 'Modeling Car Insurance Claim Outcomes Using Machine Learning (the app).py';
+  const codeAppPath   = 'Modeling Car Insurance Claim Outcomes Using Machine Learning (the app).py';
+  const modelPath    = 'insurance_model.pkl';
 
-  const hasReport = await checkFile(reportPath);
   const hasCodeModel = await checkFile(codeModelPath);
-  const hasCodeApp = await checkFile(codeAppPath);
+  const hasCodeApp   = await checkFile(codeAppPath);
+  const hasModel     = await checkFile(modelPath);
 
-  const reportViewer = document.getElementById('report-viewer');
-  const downloadReport = document.getElementById('download-report');
   const downloadCodeModel = document.getElementById('download-code-model');
-  const downloadCodeApp = document.getElementById('download-code-app');
+  const downloadCodeApp   = document.getElementById('download-code-app');
+  const downloadModel     = document.getElementById('download-the-model');
 
-  if (!hasReport){
-    if (reportViewer) reportViewer.outerHTML =
-      '<p>Report PDF not found. Put the PDF in this folder.</p>';
-    if (downloadReport) downloadReport.style.opacity = 0.6;
+  if (!hasCodeModel && downloadCodeModel){
+    downloadCodeModel.style.opacity = 0.6;
+    downloadCodeModel.title = 'File not found';
   }
 
-  if (!hasCodeModel){
-    if (downloadCodeModel) downloadCodeModel.style.opacity = 0.6;
+  if (!hasCodeApp && downloadCodeApp){
+    downloadCodeApp.style.opacity = 0.6;
+    downloadCodeApp.title = 'File not found';
   }
 
-  if (!hasCodeApp){
-    if (downloadCodeApp) downloadCodeApp.style.opacity = 0.6;
+  if (!hasModel && downloadModel){
+    downloadModel.style.opacity = 0.6;
+    downloadModel.title = 'File not found';
   }
 });
 </script>
