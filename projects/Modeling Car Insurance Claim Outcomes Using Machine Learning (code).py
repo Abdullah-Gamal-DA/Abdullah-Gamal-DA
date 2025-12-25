@@ -85,22 +85,20 @@ best_feature = features[np.argmax(importances)]
 print('Most Important Feature:', best_feature)
 
 # =============================
-# 8) Single-feature model using Decision Tree
+# 8) Decision Tree on all features
 # =============================
-# - Train a simpler model using only the most important feature
-# - Decision Tree provides interpretable predictions
-X_single = car[[best_feature]].values
+# استخدم كل الفيوتشرز بدل أفضل واحد
 X_tr, X_te, y_tr, y_te = train_test_split(
-    X_single, y, test_size=0.3, stratify=y, random_state=42
+    X, y, test_size=0.3, stratify=y, random_state=42
 )
 
-single_model = DecisionTreeClassifier(random_state=42)
-cv_score = cross_val_score(single_model, X_tr, y_tr, cv=5, scoring='accuracy')
+full_model = DecisionTreeClassifier(random_state=42)
+cv_score = cross_val_score(full_model, X_tr, y_tr, cv=5, scoring='accuracy')
 
-single_model.fit(X_tr, y_tr)
-y_pred = single_model.predict(X_te)
+full_model.fit(X_tr, y_tr)
+y_pred = full_model.predict(X_te)
 
-print('\nSingle Feature Decision Tree Model Results')
+print('\nDecision Tree Model on All Features')
 print('Cross-Validation Accuracy:', cv_score.mean())
 print('Test Accuracy:', accuracy_score(y_te, y_pred))
 print(classification_report(y_te, y_pred))
@@ -118,5 +116,5 @@ plt.show()
 # =============================
 # 10) Save the trained model
 # =============================
-joblib.dump(single_model, 'insurance_model.pkl')
-print("Model saved as 'insurance_model.pkl'")
+joblib.dump(full_model, 'insurance_model.pkl')
+print("Model saved as 'insurance_model.pkl' (all features)")
